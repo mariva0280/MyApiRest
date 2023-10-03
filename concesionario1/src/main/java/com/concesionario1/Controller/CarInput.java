@@ -3,6 +3,8 @@ package com.concesionario1.Controller;
 public class CarInput {
     private String matricula;
     private String modelo;
+    private String marca;
+    private int anyo;
 
     public CarInput(String matricula, String modelo) throws InvalidCarFieldException {
         if(matricula == null) throw new InvalidCarFieldException("The car identification cannot be null");
@@ -18,5 +20,13 @@ public class CarInput {
 
     public String getModelo() {
         return modelo;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public int getAnyo() {
+        return anyo;
     }
 }

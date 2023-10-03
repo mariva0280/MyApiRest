@@ -16,6 +16,7 @@ public class Coche {
     public Coche(String matricula, String modelo) {
         this.matricula = matricula;
         this.modelo = modelo;
+
     }
 
     public String getMatricula() {

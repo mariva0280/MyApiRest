@@ -26,11 +26,13 @@ public class CarController {
         }
         return ResponseEntity.ok().build();
     }
-    /*@GetMapping("/coches")
-    public List<Coche>listarCoches(){
-        return coches;
+    @GetMapping("/coches")
+    public ResponseEntity<List<CarOutput>>getCoches() {
+        List<CarOutput> coches = carService.getCoches();
+        return ResponseEntity.ok(coches);
     }
-    @GetMapping("/coches/{id}")
+
+    /*@GetMapping("/coches/{id}")
     public Coche obtenerCochePorId(@PathVariable int id) throws Exception {
         for(Coche coche : coches) {
             if(coche.getId() == id) {
