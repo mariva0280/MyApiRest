@@ -4,22 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Exposicion {
-    private int numExpo;
+    private int codExpo;
+    private String nombre;
     private String localidad;
-    private List<Coche> cochesExpo = new ArrayList<>();
 
-
-    public Exposicion(int numExpo, String localidad) {
-        this.numExpo = numExpo;
+    public Exposicion(int codExpo, String nombre, String localidad) {
+        this.codExpo = codExpo;
+        this.nombre = nombre;
         this.localidad = localidad;
     }
 
-    public int getNumExpo() {
-        return numExpo;
+    public Exposicion(int codExpo, String nombre) {
+        this.codExpo = codExpo;
+        this.nombre = nombre;
     }
 
-    public void setNumExpo(int numExpo) {
-        this.numExpo = numExpo;
+    public int getCodExpo() {
+        return codExpo;
+    }
+
+    public void setCodExpo(int codExpo) {
+        this.codExpo = codExpo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getLocalidad() {
@@ -28,12 +41,5 @@ public class Exposicion {
 
     public void setLocalidad(String localidad) {
         this.localidad = localidad;
-    }
-
-    public List<Coche> getCochesExpo() {
-        return cochesExpo;
-    }
-    public void agregarCoche(Coche coche) {
-        cochesExpo.add(coche);
     }
 }
