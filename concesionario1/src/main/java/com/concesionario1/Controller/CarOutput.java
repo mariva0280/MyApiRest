@@ -17,6 +17,11 @@ public class CarOutput {
         this.matricula = matricula;
     }
 
+    public CarOutput(String matricula, String marca) {
+        this.matricula = matricula;
+        this.marca = marca;
+    }
+
     public String getMatricula() {
         return matricula;
     }

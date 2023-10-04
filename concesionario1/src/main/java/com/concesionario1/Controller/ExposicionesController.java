@@ -1,8 +1,8 @@
 package com.concesionario1.Controller;
 
-import com.concesionario1.Domain.Coche;
-import com.concesionario1.Domain.Exposicion;
+import com.concesionario1.Service.CarNotFoundException;
 import com.concesionario1.Service.ExpositionExistsException;
+import com.concesionario1.Service.ExpositionNotFoundException;
 import com.concesionario1.Service.ExpositionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ public class ExposicionesController {
 
     @PostMapping("/exposiciones")
     public ResponseEntity<String>addExposition(@RequestBody ExpositionInput exposicion) {
-        //ExpositionService expositionService = new ExpositionService();
+
         try{
             expositionService.addExposition(exposicion);
 
@@ -27,10 +27,31 @@ public class ExposicionesController {
         }
         return ResponseEntity.ok().build();
     }
+    @PostMapping("exposiciones/{codExpo}/coches/{cocheId}")
+    public ResponseEntity<String>addCocheToExposicion(@PathVariable int codExpo,@PathVariable int cocheId,@RequestBody CarInput coche){
+        try{
+            expositionService.addCocheToExposicion(codExpo,cocheId,coche);
+            return ResponseEntity.ok().build();
+        }catch (ExpositionNotFoundException e){
+            String errorMessage = "Exposition not found";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorMessage);
+        }
+    }
     @GetMapping("/exposiciones")
     public ResponseEntity<List<ExpositionOutput>>getExposiciones() {
         List<ExpositionOutput> exposiciones = expositionService.getExposiciones();
         return ResponseEntity.ok(exposiciones);
+    }
+    @GetMapping("/exposiciones/{codExpo}/coches/{cocheId}")
+    public ResponseEntity<CarOutput> getCarFromExposicion(@PathVariable int codExpo,@PathVariable int cocheId){
+        try{
+            CarOutput carOutput = expositionService.getCarFromExposicion(codExpo,cocheId);
+            return ResponseEntity.ok(carOutput);
+        }catch (ExpositionNotFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }catch (CarNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
 
