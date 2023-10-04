@@ -13,6 +13,10 @@ public class CarOutput {
         this.anyo = anyo;
     }
 
+    public CarOutput(String matricula) {
+        this.matricula = matricula;
+    }
+
     public String getMatricula() {
         return matricula;
     }

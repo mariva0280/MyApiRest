@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -32,15 +31,16 @@ public class CarController {
         return ResponseEntity.ok(coches);
     }
 
-    /*@GetMapping("/coches/{id}")
-    public Coche obtenerCochePorId(@PathVariable int id) throws Exception {
-        for(Coche coche : coches) {
-            if(coche.getId() == id) {
-                return coche;
-            }
+    @GetMapping("/coches/{id}")
+    public ResponseEntity<CarOutput> getIdCcoches (@PathVariable int id)  {
+        CarOutput coche = carService.getIdCoches(id);
+        if(coche != null) {
+            return ResponseEntity.ok(coche);
+        }else{
+            return ResponseEntity.notFound().build();
         }
-        throw new Exception("Coche no encontrado");
-    }*/
+
+    }
 
 
 }
