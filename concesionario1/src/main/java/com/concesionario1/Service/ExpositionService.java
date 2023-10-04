@@ -1,6 +1,9 @@
 package com.concesionario1.Service;
 
+import com.concesionario1.Controller.CarOutput;
 import com.concesionario1.Controller.ExpositionInput;
+import com.concesionario1.Controller.ExpositionOutput;
+import com.concesionario1.Domain.Coche;
 import com.concesionario1.Domain.Exposicion;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +22,12 @@ public class ExpositionService {
             if(item.getCodExpo() == exposicion.getCodExpo()) throw new ExpositionExistsException("The exposition already exists");
         }
         exposiciones.add(exposicion);
+    }
+    public List<ExpositionOutput> getExposiciones() {
+        List<ExpositionOutput> expositionOutput = new ArrayList<>();
+        for(Exposicion exposicion : exposiciones) {
+            expositionOutput.add(new ExpositionOutput(exposicion.getCodExpo()));
+        }
+        return expositionOutput;
     }
 }

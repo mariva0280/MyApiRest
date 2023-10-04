@@ -27,6 +27,11 @@ public class ExposicionesController {
         }
         return ResponseEntity.ok().build();
     }
+    @GetMapping("/exposiciones")
+    public ResponseEntity<List<ExpositionOutput>>getExposiciones() {
+        List<ExpositionOutput> exposiciones = expositionService.getExposiciones();
+        return ResponseEntity.ok(exposiciones);
+    }
 
 
     /*@GetMapping("/exposiciones")
