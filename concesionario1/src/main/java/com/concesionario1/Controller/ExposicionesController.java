@@ -53,7 +53,17 @@ public class ExposicionesController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-
+    @PutMapping("/exposiciones/{codExpo}")
+    public ResponseEntity<ExpositionOutput> changeExposition(@PathVariable int codExpo, @RequestBody ExpositionUpdate exposition) {
+        try {
+            ExpositionOutput updatedExposition = expositionService.changeExposition(codExpo, exposition);
+            return ResponseEntity.ok(updatedExposition);
+        } catch (ExpositionNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (ExpositionExistsException e) {
+            return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).build();
+        }
+    }
 }
 
 

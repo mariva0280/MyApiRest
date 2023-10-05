@@ -1,9 +1,6 @@
 package com.concesionario1.Service;
 
-import com.concesionario1.Controller.CarInput;
-import com.concesionario1.Controller.CarOutput;
-import com.concesionario1.Controller.ExpositionInput;
-import com.concesionario1.Controller.ExpositionOutput;
+import com.concesionario1.Controller.*;
 import com.concesionario1.Domain.Coche;
 import com.concesionario1.Domain.Exposicion;
 import org.springframework.stereotype.Service;
@@ -63,6 +60,22 @@ public class ExpositionService {
             }
         }
         return null;
+    }
+    public ExpositionOutput changeExposition(int codExpo, ExpositionUpdate exposition) throws ExpositionExistsException,ExpositionNotFoundException{
+        for(Exposicion exposicion : exposiciones) {
+            if(exposicion.getCodExpo() == codExpo){
+                for (Exposicion existsExpo : exposiciones) {
+                    if (existsExpo.getCodExpo()==exposition.getCodExpo()) {
+                        throw new ExpositionExistsException("Exposition with the same code already exists");
+                    }
+                }
+                exposicion.setCodExpo(exposition.getCodExpo());
+                exposicion.setNombre(exposition.getNombre());
+
+                return new ExpositionOutput(exposicion.getCodExpo(),exposicion.getNombre());
+            }
+        }
+        throw new ExpositionNotFoundException("Exposition not found");
     }
 
 }
