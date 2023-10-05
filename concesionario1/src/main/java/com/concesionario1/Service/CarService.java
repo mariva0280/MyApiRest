@@ -2,6 +2,7 @@ package com.concesionario1.Service;
 
 import com.concesionario1.Controller.CarInput;
 import com.concesionario1.Controller.CarOutput;
+import com.concesionario1.Controller.CarUpdate;
 import com.concesionario1.Domain.Coche;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +15,17 @@ import java.util.Map;
 
 public class CarService {
     private List<Coche> coches = new ArrayList<>();
-    private Map<Integer,String> idMatricula = new HashMap<>();
+    private Map<Integer,String>idMatricula = new HashMap<>();
+    private int nextId = 1;
 
     public void addCar(CarInput input) throws CarExistsException{
-        //Coche coche = new Coche(input.getMatricula(),input.getModelo());
         Coche coche = new Coche(input.getMatricula(), input.getModelo(),input.getMarca(),input.getAnyo());
         for(Coche item : coches) {
             if(item.getMatricula().equalsIgnoreCase(coche.getMatricula())) throw new CarExistsException("The car already exists.");
         }
         coches.add(coche);
-        idMatricula.put(coches.size(),coche.getMatricula());
+        idMatricula.put(nextId, coche.getMatricula());
+        nextId++;
     }
 
     public List<CarOutput> getCoches() {
@@ -43,5 +45,28 @@ public class CarService {
             }
         }
         return null;
+    }
+    public CarOutput changeCar(String matricula, CarUpdate car) throws CarNotFoundException,CarExistsException {
+        for(Coche coche : coches) {
+            if(coche.getMatricula().equalsIgnoreCase(matricula)){
+                for (Coche existsCoche : coches) {
+                    if (existsCoche.getMatricula().equalsIgnoreCase(car.getMatricula())) {
+                        throw new CarExistsException("Car with the same matricula already exists.");
+                    }
+                }
+                coche.setMatricula(car.getMatricula());
+
+                for (Integer key : idMatricula.keySet()) {
+                    String value = idMatricula.get(key);
+                    if (value.equalsIgnoreCase(matricula)) {
+                        idMatricula.put(key, car.getMatricula());
+                        break;
+                    }
+                }
+
+                return new CarOutput(coche.getMatricula(), coche.getMarca(),coche.getModelo(),coche.getAnyo());
+            }
+        }
+        throw new CarNotFoundException("Car not exists");
     }
 }

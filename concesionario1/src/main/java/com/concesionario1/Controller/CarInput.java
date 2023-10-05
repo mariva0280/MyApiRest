@@ -13,7 +13,6 @@ public class CarInput {
         if(modelo == null) throw new InvalidCarFieldException("The car model cannot be null");
         this.modelo = modelo;
     }
-
     public String getMatricula() {
         return matricula;
     }

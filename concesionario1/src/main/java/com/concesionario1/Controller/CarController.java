@@ -2,6 +2,7 @@ package com.concesionario1.Controller;
 
 import com.concesionario1.Domain.Coche;
 import com.concesionario1.Service.CarExistsException;
+import com.concesionario1.Service.CarNotFoundException;
 import com.concesionario1.Service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,6 @@ public class CarController {
     private CarService carService;
     @PostMapping("/coches")
     public ResponseEntity<String>addCar(@RequestBody CarInput coche){
-        //CarService carService = new CarService();
         try{
             carService.addCar(coche);
         }catch (CarExistsException e) {
@@ -39,8 +39,24 @@ public class CarController {
         }else{
             return ResponseEntity.notFound().build();
         }
-
     }
 
+   @PutMapping("/coches/{id}")
+    public ResponseEntity<CarOutput>changeCar(@PathVariable int id,@RequestBody CarUpdate car){
+        try{
+            CarOutput cars = carService.getIdCoches(id);
+           if(cars != null) {
+               String matricula = cars.getMatricula();
+               CarOutput result = carService.changeCar(matricula,car);
+               return ResponseEntity.ok(result);
+           }else{
+               return ResponseEntity.notFound().build();
+           }
+        }catch (CarNotFoundException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }catch (CarExistsException e) {
+            return ResponseEntity.status(HttpStatus.ALREADY_REPORTED).build();
+        }
+    }
 
 }

@@ -15,11 +15,16 @@ public class CarOutput {
 
     public CarOutput(String matricula) {
         this.matricula = matricula;
+        this.marca = "undefined";
+        this.modelo ="undefined";
+        this.anyo = 0;
     }
 
     public CarOutput(String matricula, String marca) {
         this.matricula = matricula;
         this.marca = marca;
+        this.modelo = "undefined";
+        this.anyo=0;
     }
 
     public String getMatricula() {

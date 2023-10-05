@@ -54,39 +54,6 @@ public class ExposicionesController {
         }
     }
 
-
-    /*@GetMapping("/exposiciones")
-    public List<Exposicion> listarExposiciones() {
-        return new ArrayList<>(exposiciones.values());
-    }
-
-    @GetMapping("/exposiciones/{numExpo}")
-    public Exposicion obtenerExposicionPorNumExpo(@PathVariable int numExpo) {
-        return exposiciones.getOrDefault(numExpo, null);
-    }
-
-    @GetMapping("/exposiciones/{numExpo}/coches")
-    public List<Coche> obtenerCochesExposicion(@PathVariable int numExpo) {
-        Exposicion exposicion = exposiciones.get(numExpo);
-        if(exposicion != null) {
-            return exposicion.getCochesExpo();
-        }else {
-            return new ArrayList<>(); 
-        }
-    }
-
-    @GetMapping("/exposiciones/{numExpo}/coches/{cocheId}")
-    public Coche obtenerCocheDeExposicion(@PathVariable int numExpo, @PathVariable int cocheId) {
-        Exposicion exposicion = exposiciones.get(numExpo);
-        if (exposicion != null) {
-            for (Coche coche : exposicion.getCochesExpo()) {
-                if (coche.getId() == cocheId) {
-                    return coche;
-                }
-            }
-        }
-        return null;
-    }*/
 }
 
 
