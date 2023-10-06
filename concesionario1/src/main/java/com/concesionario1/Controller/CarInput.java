@@ -8,9 +8,11 @@ public class CarInput {
 
     public CarInput(String matricula, String modelo) throws InvalidCarFieldException {
         if(matricula == null) throw new InvalidCarFieldException("The car identification cannot be null");
-        if(matricula.trim().length() < 7 || matricula.trim().length() > 7 ) throw new InvalidCarFieldException("The car identification cannot be less than 7 or greater than 7");
+        if(matricula.trim().isEmpty()) throw new InvalidCarFieldException("The car identification cannot be empty");
+        if(matricula.trim().length() != 7 ) throw new InvalidCarFieldException("The car identification must be 7 characters long");
         this.matricula = matricula;
         if(modelo == null) throw new InvalidCarFieldException("The car model cannot be null");
+        if(modelo.trim().isEmpty()) throw new InvalidCarFieldException("The car model cannot be empty");
         this.modelo = modelo;
     }
     public String getMatricula() {

@@ -6,7 +6,7 @@ public class ExpositionInput {
 
     public ExpositionInput(String nombre, int codExpo) throws InvalidExpositionFieldException{
         if(nombre == null) throw new InvalidExpositionFieldException("The exposition name cannot be null");
-        if(nombre == "") throw new InvalidExpositionFieldException("The exposition name cannot be empty");
+        if(nombre.trim().isEmpty()) throw new InvalidExpositionFieldException("The exposition name cannot be empty");
         if(nombre.trim().length() < 1) throw new InvalidExpositionFieldException("The exposition name cannot have less than 1 of length");
         this.nombre = nombre;
 

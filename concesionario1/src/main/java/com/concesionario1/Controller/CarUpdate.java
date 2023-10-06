@@ -9,9 +9,10 @@ public class CarUpdate {
 
     }
 
-    public CarUpdate(String matricula) throws CarNotFoundException {
+    public CarUpdate(String matricula) throws CarNotFoundException,InvalidCarFieldException {
         if(matricula == null) throw new CarNotFoundException("The car identification cannot be null");
-        if(matricula.trim().length() < 7 || matricula.trim().length() > 7 ) throw new CarNotFoundException("The car identification cannot be less than 7 or greater than 7");
+        if(matricula.trim().isEmpty()) throw new InvalidCarFieldException("The car identification cannot be empty");
+        if(matricula.trim().length() != 7 ) throw new CarNotFoundException("The car identification must be 7 characters long");
         this.matricula = matricula;
     }
 
